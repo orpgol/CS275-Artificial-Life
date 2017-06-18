@@ -19,8 +19,8 @@ public class Creature : MonoBehaviour {
 	private Vector3 initialPosition;
 
 	public GameObject body;
-	private float bodyAngleMax = 90.0f;
-	private float bodyAngleMin = 90.0f;
+	private float bodyAngle = 0.0f;
+	private int iter = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -83,17 +83,12 @@ public class Creature : MonoBehaviour {
 		leftFoot1.position = genome.leftFoot1.EvaluateAt(Time.time);
 		rightFoot1.position = genome.rightFoot1.EvaluateAt(Time.time);
 
-		float bodyAngle = body.transform.rotation.z;
-		if(bodyAngle > bodyAngleMax){
-			bodyAngleMax = bodyAngle;
-		}
-		else if(bodyAngle < bodyAngleMin){
-			bodyAngleMin = bodyAngle;
-		}
+		bodyAngle += Mathf.Abs(90.0f - body.transform.rotation.z);
+		iter += 1;
 	}
 
 	public float GetScore() {
-		float bodyAngleRange = bodyAngleMax - bodyAngleMin;
-		return (transform.GetChild(0).position.x - initialPosition.x)*4 - bodyAngleRange;
+		float bodyAngleMean = bodyAngle/iter;
+		return (transform.GetChild(0).position.x - initialPosition.x)*4 - bodyAngleMean;
 	}
 }

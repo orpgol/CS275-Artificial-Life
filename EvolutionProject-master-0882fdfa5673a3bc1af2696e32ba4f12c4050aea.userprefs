@@ -1,9 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GenomeLeg.cs">
     <Files>
-      <File FileName="Assets/SimulationStarter.cs" Line="1" Column="1" />
-      <File FileName="Assets/Creature.cs" Line="1" Column="1" />
+      <File FileName="Assets/Creature.cs" Line="97" Column="84" />
+      <File FileName="Assets/SimulationStarter.cs" Line="76" Column="33" />
+      <File FileName="Assets/LegController.cs" Line="34" Column="40" />
+      <File FileName="Assets/Genome.cs" Line="24" Column="33" />
+      <File FileName="Assets/GenomeFoot.cs" Line="1" Column="1" />
+      <File FileName="Assets/GenomeLeg.cs" Line="1" Column="1" />
+      <File FileName="Assets/FootController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
