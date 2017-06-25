@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+                                                          % paper
+
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+
+
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{graphicx}
+\usepackage{listings}
+\lstdefinestyle{sharpc}{language=[Sharp]C, frame=lr, rulecolor=\color{blue!80!black}}
+\usepackage{amsmath}
+
+\title{\LARGE \bf
+Exploring evolution \& mutation in Artificial Life on different physical conditions \\
+CS275 Project report
+}
+
+\author{Orpaz Goldstein,$^{1}$ Taylor Caulfield,$^{1}$ Andrew Tran,$^{1}$ Carlos Sotelo,$^{1}$ and Kailun Qian$^{1}$% <-this % stops a space
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+Computer simulations of life forms can provide valuable insight into how life forms function and evolve. A popular form of simulation is the evolutionary model, which we wish to utilize to explore how a physical environment can influence a creature's locomotion. Multiple copies of a simple base creature with a base set of movement parameters are placed in a 2D environment and are mutated, randomly shifting around their movement parameters. The creatures are then given tasks in the form of a fitness function. The highest scoring creatures are kept alive and copied, while the other creatures are culled. With our method, we are able to create a creature that can move reasonably well in a variety of 2D environments.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+
+Artificial life simulation has long been a subject of interest in fields outside of the realm of computer science, particularly biology. Simulating a life form can provide information on that life form that is difficult or impossible to obtain in the real world, such as the mechanics of its locomotion and why the life form developed the physical characteristics that it has. These simulations are also valuable in the animation sector, as they can remove the need to animate creatures by hand.
+
+Various forms of artificial life simulation exist. In this paper, we will be focusing on evolutionary models, an iterative form of modeling that is heavily inspired by the process of biological evolution. Evolutionary models take in a base set of parameters and one or more objectives. They then repeatedly tweak the parameters in a stochastic manner and test them with the objective(s), optimizing the parameters in the process. The more iterations that are performed, the more optimized the parameters tend to become. This process, which is completely automated, is much faster than trying to find optimal parameters by hand. In the field of artificial life, evolutionary models are often used to explore the dynamics and evolution of locomotion in animals.
+
+\section{Background Information}
+
+Evolutionary models in artificial life have been explored for over three decades. Two major developments in the field have arisen from the work of Chris Langton and Karl Sims.
+
+\subsection{Langton's Ant(1986)}
+Langton's ant is a 2D Turing Machine to kick started artificial life. It starts with an Ant moving in a grid. Each position has black or white color. The ant will turn left or right and move forward one step based on the step it was on. The trajectory pattern starts simple, symmetry like. Then the pattern becomes extremely random. But when the simulation goes to around ten thousand steps, the pattern suddenly becomes completely regular. For example, it can moving like a small circle outwards diagonally, which people like call this pattern a "highway". This is a great example shows a simple rule can lead to really complex result. Although this is not an evolutionary model in our experiment, but Langton's ant was a major influence on people's research on artificial life. 
+
+
+\subsection{Karl Sims: Evolved Virtual Creatures(1994)}
+
+Karl Sims developed a system that created several hundred creatures with a "genome" that were tested on a task; each iteration, select the most fit creatures, these creatures pass their genome onto the next generation. The whole evolving process then repeat in next generation. The idea is that like evolution, better and better traits will emerge that are suited to the environment. Karl Sims' experiment inspired our team to implement our method in this project.
+
+\section{Project Objectives}
+
+In this project, our first objective is to be able to reproduce some of the results from Karl Sims' experiments. We wish to be able to evolve a creature that can walk in a 2D environment using Sims' guidelines for evolutionary development and evaluation using a fitness function. In addition, we will enhance the evolutionary method by introducing a stochastic global maximum search function for the mutation of a creature's genome. In our case, we will use simulated annealing to allow for a wide exploration of the genome. Lastly, we expect creatures to evolve in different ways on different physical environments. This will be tested by changing components such as the gravity in the simulation, and evolving a set of creatures that will be compared to creatures evolved on different environments. This will let us glimpse into the possible variations in creature evolution on physical conditions that differ from our own.
+
+\subsection{Evolutionary Computation} In this project, multiple methods and algorithms can be implemented in order to approach the objective we proposed in previous section. Different machine learning technique for example can be used as a key in this case. The general concept in this project is called Evolutionary Computation, which is inspired by Darwin's evolutionary theory. In Darwin's theory, the fittest species can have the chance to produce their offspring. Therefore, they can survive the environment comparing with other species in the same environment. Our idea of evolutionary computation is very similar to evolution theory. In the initialization stage, we create a number of creatures from an initial creature model. These creatures do not have ability to walk or run by themselves yet. In the second stage, we let the creatures duplicate themselves into hundreds of exact copies. The third stage is called mutation. In this stage, the genomes of the creatures are randomly altered. Now we officially have our first generation creatures. The fourth stage is called evaluation stage. Previously generated creatures get evaluated in this stage in a simulated natural environment. The creatures start learn to walk by themselves in simulation. In the meantime, we keep tracking their fitness value for each individual and compare this value at the end of simulation when they stop moving forward. The fifth stage is called the selection stage. In this stage, we select the individuals who achieved the highest fitness score in the previous stage. For example, we had 500 creatures fully developed and evaluated. Then we only choose the first 20 creatures in the selection stage and let them have the right to evolve in the next circle according to Figure 1. This algorithm is then iteratively running for further generations. After hundreds of generations evaluated through the evolution loop, the output of our final creatures can be selected in the current selection step. Our algorithm can be fed a number of parameters to alter the evolutionary process, such as the number of starting creatures and the number of creatures selected to go on to the next generation.
+
+%insert picture method, can be used as template
+\begin{figure}
+\centering
+  \includegraphics[width=9cm]{kailun1.png}\\
+  \caption{evolution computation loop}\label{fig1}
+\end{figure}
+
+\subsection{Implementation Strategy}
+In order to seamlessly visualize a creature model while creating control functions and defining a physical environment, we have implemented our project with Unity3D. Unity3D is a game engine that greatly simplifies the development of physics based simulation while allowing us the freedom to control every aspect of the simulation using scripts written in C$\#$. Our team focused on a single model for a base creature we would then evolve. The structure of our model contains a solid body, two eyes, four legs, four feet. The legs and feet are simple cylindrical segments joined together by springs and hinge joints. The limbs are in turn attached to the body using hinges. Each creature has a genome which contains the information that was passed down from previous generations. Each genome controls eight phenotypes, one for each foot and leg. Each phenotype, in turn, has four parameters that influence the way in which a leg or foot interacts with the environment.
+
+\subsection{Mutation Computation}
+Mutation of a creature's genome is implemented with a technique known as simulated annealing. All four parameters of all eight phenotypes in a creature's genome are randomly shifted with a magnitude proportional to a paramater known as the annealing temperature. After each generation, the annealing temperature is decremented by another parameter known as the cooling temperature. The mutations in the earlier generations tend to be more drastic as the genomes are shifted around with higher magnitudes. As the generations go by, the shifts in the genome become less and less dramatic, resulting in more subtle mutations in later generations. We chose to use simulated annealing to reduce the possibility of our creature's genomes getting stuck in local extrema, which would prevent our creatures from properly adapting to their environment. The larger shifts in the earlier generations allow us to find the general location of the global extrema. The smaller shifts in the later generations allow us to home in on the global extrema while ensuring that we don't accidentally jump away from the general area of the global extrema.
+
+\subsection{Fitness Function Evaluation}
+Our fitness function scores two aspects of a walking creature. Our first parameter of evaluation is the distance a creature has passed on the X axis during our measurement time. The second parameter is the angular orientation of the creatures body. A creature who manages to stay horizontal oriented scores higher in our fitness function. The result we aimed for is a creature who is able to walk while keeping "upright" without unnecessary acrobatic maneuvers. While the X axis distance is measured easily by subtracting the starting distance from the end distance, the absolute value of angular orientation error has to be taken into account at every frame of the simulation and then divided by the number of data points taken to get a mean value for the error. In order to fine tune our fitness function, we assigned different weights to the two parameters and manually chosen the weights that gave a most balanced looking creature.
+
+\begin{align*}
+BodyAngle = |90.0 - body.rotation.z| \ \forall \ Frame\\
+\\
+BodyAngleMean = \dfrac{BodyAngle}{\#Frames}\\
+\\
+Fitness Score = \\
+	(end.position.x - initialPosition.x)*\alpha \\
+	- bodyAngleMean*\beta
+\end{align*}
+
+\section{EXPERIMENT RESULTS}
+In an attempt to achieve our objectives, our team performed different experiments on our creatures. In the following subsections, we will present all of them to show our results.
+As a guideline to all our experiments, we have attempted to evolve a natural looking creature in contrast to the Karl Sims' creatures. In addition we strive to produce a creature who will carry itself in a natural manner (i.e: head upright, fluid motion of the limbs) and constructed our fitness with that in mind.
+
+\subsection{Preliminary attempt at evolving a walking creature}
+Our first attempt in evolving a walking creature used a simpler version of our final creature. In constructing a creature with half the size of the genome and only two limbs connected to a body, we were able to test our theory regarding the usage of simulated annealing in "searching" for a global maximum that translated to a creature who most adequately satisfied our fitness function. The first version of fitness included only a score based on the X axis distance of a creature and nothing else.
+Using this basic version of a creature and fitness function, we were able to evolve a walking creature who made efficient use of it's limbs, although not in the most natural way.
+
+Once we had a first version of a creature, we felt confident to complicate our creature design; add two more limbs, increase the genome size and adding a restriction on head/body angle orientation to induce a more naturally walking creature.
+
+\subsection{Fine tuning fitness}
+Using a fitness function that scores both the X axis distance and the angle along that same axis in addition to the stochastic nature of our simulated annealing search method, allows us to play with the parameters, assign weights to either parameter and expect different results every single time. We have started by using an unweighted version of the function but quickly realized that the orientation is overtaking the distance resulting in creatures that far preferred to keep a straight head then walking a distance. In order to correct that, we introduced two weights for either parameters: $\alpha$ for the distance parameter and $\beta$ for the head angle. 
+By using different combinations of weights we were able to evolve creatures that were both great walkers as well as maintained a natural posture.
+   
+\subsection{Experimentation with gravity}
+Once we were happy with the results of evolving a creature to walk, we approached the experiment of evolving creatures in different environments. Different values of downward acceleration were used essentially changing the value of gravity experienced by a creature, denoted here as a number representing the distance from Earth gravity (i.e: 1).
+
+The focus of our gravity changes were to see how gravity changes in both the positive and negative direction would affect the evolution of creatures. The two gravity values that were chosen are 0.16G (lunar gravity) and 2.36G (Jupiter's gravity). As the video clips of the result show, creatures evolution have a very distinct correlation with different gravity values; while lower gravity produces creatures who are prone to walking tall and using the entire range of two or more limbs while balancing themselves, higher gravity shows creatures walk closer to the ground, using more of their limbs surface in order to efficiently walk while putting less emphasis on upright movement or stretched out limbs.
+
+\section{CONCLUSIONS}
+ 
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In our experiment, we thought all limbs would perform like four legs for our creature. But in some selected generations, two of limbs actually perform like arms to keep body in balance. In a way, it resembles our human beings: two limbs work as arms, the other two are legs. Hence artificial life is a great method to achieve result beyond normal imagination. We performed our creatures in different gravities and their behavior are certainly have differences, which indicate creatures adapt to different environment accordingly. In future, this experiment can also be improved to add more tasks in environment, like obstacles, climate change, etc. 
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{c1} Karl Sims, Evolving Virtual Creatures Proceeding
+SIGGRAPH '94 Proceedings of the 21st annual conference on Computer graphics and interactive techniques, Pages 15-22 
+ACM New York, NY, USA 1994   
+\bibitem{c2} Langton, Chris G. Studying artificial life with cellular automata. Physica D: Nonlinear Phenomena. 1986
+
+
+
+
+\end{thebibliography}
+
+
+
+
+\end{document}
+
